@@ -46,6 +46,10 @@
             padding: 0;
             display: flex;
             gap: 25px;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            display: inline;
         }
         nav ul li a {
             color: #fff;
@@ -260,8 +264,9 @@
                 font-size: 18px;
             }
             nav ul {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
+                flex-wrap: wrap;
             }
         }
         @media (max-width: 480px) {
@@ -281,8 +286,9 @@
                 height: 60px;
             }
             nav ul {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 5px;
+                flex-wrap: wrap;
             }
         }
     </style>
