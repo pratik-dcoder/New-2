@@ -3,30 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Russian Product - Shop</title>
+    <title>American Product - Shop</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
         }
         header {
             background-color: #232f3e;
             color: #fff;
-            padding: 10px 20px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
-        header .logo {
-            width: 50px;
-            height: 50px;
+        .logo {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid #ff9900;
+            transition: transform 0.3s;
         }
-        header .logo img {
+        .logo:hover {
+            transform: rotate(15deg);
+        }
+        .logo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -36,71 +45,245 @@
             margin: 0;
             padding: 0;
             display: flex;
-        }
-        nav ul li {
-            margin-left: 20px;
+            gap: 25px;
         }
         nav ul li a {
             color: #fff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        nav ul li a:hover {
+            color: #ff9900;
+            background-color: rgba(255,255,255,0.1);
         }
         .product-container {
             display: flex;
+            flex-direction: column;
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
+            margin: 100px auto 40px auto; /* Adjusted margin-top to make space for fixed header */
+            padding: 30px;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
-        .product-image {
+        .product-gallery {
             flex: 1;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .product-image img {
-            width: 100%;
+        .main-image {
+            width: 80%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .main-image:hover {
+            transform: scale(1.02);
+        }
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .thumbnail {
+            width: 80px;
+            height: 80px;
             border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
         }
-        .product-details {
+        .thumbnail:hover {
+            border-color: #ff9900;
+            transform: translateY(-5px);
+        }
+        .product-info {
             flex: 1;
-            padding: 20px;
+            padding: 20px 30px;
+            text-align: center;
         }
         .product-title {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 10px;
-            color: #333;
+            color: #2d3748;
+        }
+        .product-brand {
+            color: #4a5568;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .stars {
+            color: #ffc107;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .review-count {
+            color: #718096;
+            font-size: 14px;
         }
         .product-price {
-            font-size: 24px;
+            font-size: 28px;
             color: #ff9900;
             font-weight: bold;
-            margin: 20px 0;
+            margin: 25px 0;
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #a0aec0;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .discount-badge {
+            background-color: #48bb78;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-left: 10px;
         }
         .product-description {
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+        .features {
+            margin-bottom: 30px;
+        }
+        .features h3 {
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        .features ul {
+            padding-left: 20px;
+        }
+        .features li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
         }
         .add-to-cart {
             background-color: #ff9900;
             color: #fff;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             font-size: 18px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .add-to-cart:hover {
             background-color: #e68a00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+        }
+        .buy-now {
+            background-color: #2d3748;
+            color: #fff;
+            border: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .buy-now:hover {
+            background-color: #1a202c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 55, 72, 0.3);
         }
         footer {
             background-color: #232f3e;
             color: #fff;
             text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #ff9900;
+        }
+        
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .product-container {
+                padding: 20px;
+            }
+            .product-info {
+                padding: 20px;
+            }
+            .product-title {
+                font-size: 24px;
+            }
+            .product-price {
+                font-size: 24px;
+            }
+            .original-price {
+                font-size: 18px;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .product-container {
+                padding: 15px;
+            }
+            .main-image {
+                width: 100%;
+                max-width: 200px;
+            }
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
@@ -108,14 +291,13 @@
     <!-- Header -->
     <header>
         <div class="logo">
-            <img src="logo.jpg" alt="Shop Logo">
+            <a href="index.html"><img src="logo.jpg" alt="Shop Logo"></a>
         </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Deals</a></li>
-                <li><a href="#">Cart</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Cart (3)</a></li>
                 <li><a href="#">Account</a></li>
             </ul>
         </nav>
@@ -123,31 +305,75 @@
 
     <!-- Product Detail Section -->
     <div class="product-container">
-        <div class="product-image">
-            <img src="product1img.jpeg" alt="Russian Product">
+        <div class="product-gallery">
+            <img src="product2img.jpeg" alt="American Product" class="main-image">
+            <div class="thumbnail-container">
+                <img src="https://i.ibb.co/WpVSfV1F/9cbf3a1dc903.jpg" alt="Thumbnail 1" class="thumbnail">
+                <img src="https://i.ibb.co/0jq6YyP/american-alt1.jpg" alt="Thumbnail 2" class="thumbnail">
+                <img src="https://i.ibb.co/4W4y7n0/american-alt2.jpg" alt="Thumbnail 3" class="thumbnail">
+                <img src="https://i.ibb.co/7QhXw3R/american-alt3.jpg" alt="Thumbnail 4" class="thumbnail">
+            </div>
         </div>
-        <div class="product-details">
-            <h1 class="product-title">Russian Premium Product</h1>
-            <p class="product-price">Rs5999</p>
+        <div class="product-info">
+            <h1 class="product-title">Premium American Product</h1>
+            <p class="product-brand">By American Luxury Brands</p>
+            <div class="rating">
+                <div class="stars">★★★★★</div>
+                <span class="review-count">(128 customer reviews)</span>
+            </div>
+            <div class="product-price">
+                Rs4999 <span class="original-price">Rs7999</span>
+                <span class="discount-badge">38% OFF</span>
+            </div>
             <p class="product-description">
-                This premium Russian product is crafted with the finest materials and exceptional attention to detail. 
-                Designed for those who appreciate quality and sophistication, it offers unparalleled performance and style.
-                <br><br>
-                Features include:
-                <ul>
-                    <li>High-quality materials</li>
-                    <li>Expert craftsmanship</li>
-                    <li>Long-lasting durability</li>
-                    <li>Elegant design</li>
-                </ul>
+                Experience the epitome of American craftsmanship with our premium product. Designed for those who demand the best, this item combines innovative technology with timeless design. Perfec[...]
             </p>
-            <button class="add-to-cart">Add to Cart</button>
+            <div class="features">
+                <h3>Key Features:</h3>
+                <ul>
+                    <li>Made with premium American materials</li>
+                    <li>Advanced technology for superior performance</li>
+                    <li>Ergonomic design for maximum comfort</li>
+                    <li>Durable construction built to last</li>
+                    <li>Eco-friendly manufacturing process</li>
+                    <li>Includes 2-year warranty</li>
+                </ul>
+            </div>
+            <div class="action-buttons">
+                <button class="add-to-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"[...]
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Add to Cart
+                </button>
+                <button class="buy-now">Buy Now</button>
+            </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Shipping Info</a>
+        </div>
         <p>&copy; 2023 Shop. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Simple thumbnail click functionality
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const mainImage = document.querySelector('.main-image');
+                mainImage.src = this.src;
+                mainImage.alt = this.alt;
+            });
+        });
+    </script>
 </body>
 </html>
